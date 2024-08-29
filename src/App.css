@@ -1,0 +1,271 @@
+/* General styling */
+body, html {
+  margin: 0;
+  padding: 0;
+  font-family: 'Arial', sans-serif;
+  background-color: #f3e9e9; /* Soft warm background color */
+  color: #333333;
+  height: 100%;
+  width: 100%;
+  overflow-x: hidden; /* Prevents horizontal scrolling */
+}
+
+#root {
+  height: 100%;
+}
+
+.home-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+}
+
+/* Adjusting header to be sticky at the top */
+.home-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 30px;
+  background-color: #e5d7d7;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.logo span {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #ff6600; /* Bright orange for a pop of color */
+}
+
+.home-nav {
+  display: flex;
+  gap: 20px;
+}
+
+.nav-item {
+  color: #eb0707;
+  text-decoration: none;
+  padding: 8px 16px;
+  border-radius: 20px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.nav-item.active,
+.nav-item:hover {
+  background-color: #da0d0d;
+  color: #121212;
+}
+
+/* Welcome Section with adjusted background */
+.welcome-section {
+  text-align: center;
+  background: url('C:/Users/jeevan/my-movie-app/public/background.jpg') no-repeat center center;
+  background-size: 100% auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh; /* Minimum height is the full viewport height */
+  color: #e50909;
+}
+
+.welcome-section h1 {
+  font-size: 3rem;
+  margin-bottom: 10px;
+  color: #db0c0c; /* White text for better contrast */
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5); /* Text shadow for clarity */
+}
+
+.welcome-section h2 {
+  font-size: 1.5rem;
+  font-weight: 300;
+  color: #0fc403; /* Softer color for the subtitle */
+}
+
+.search-box1 {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+  width: 30%;
+}
+
+.search-box1 input {
+  padding: 10px;
+  width: 300px;
+  border: 2px solid #ffc107;
+  border-radius: 25px 0 0 25px;
+  outline: none;
+}
+
+.search-box1 button {
+  
+  padding: 10px;
+  border: 2px solid #ffc107;
+  border-radius: 0 25px 25px 0;
+  background-color: #ff6600;
+  cursor: pointer;
+  color: #020202;
+  transition: background-color 0.3s ease;
+}
+
+.search-box1 button:hover {
+  background-color: #cc5200; /* Darker shade on hover */
+}
+
+/* Movie and Watchlist Sections */
+.favourite-movies, .watchlist-section {
+  padding: 20px;
+  flex: 1;
+  background-color: #0e0a0a; /* Adds a clean background color */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Light shadow for sections */
+  margin-bottom: 20px;
+}
+
+.favourite-movies h3, .watchlist-section h3 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0;
+}
+
+.view-all {
+  position: relative;
+margin-left: auto;
+  color: #ff6600; /* Matches the theme color */
+  text-decoration: none;
+  font-size: 0.9rem;
+  padding: 5px 10px;
+  border-radius: 15px;
+  background-color: #f3e9e9; /* Slightly lighter background */
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  /* Moves the button to the far left */
+}
+
+.view-all:hover {
+  background-color: #ff6600;
+  color: #ffffff;
+}
+
+/* Grid Layout for Movies and Watchlists */
+.movies-grid, .watchlist-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Maintains smaller card size */
+  gap: 20px;
+}
+
+.movie-card, .watchlist-card {
+  background-color: #2c2c2c;
+  border-radius: 10px;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+}
+
+.movie-card img, .watchlist-card img {
+  width: 100%;
+  height: 225px; /* Reduced image height to fit more cards in one column */
+  object-fit: cover;
+}
+
+.movie-details, .watchlist-details {
+  padding: 10px;
+  text-align: center;
+  color: #f3e9e9;
+}
+
+.movie-details h4, .watchlist-details h4 {
+  margin: 10px 0;
+  color: #f3e9e9; /* Light text color for readability */
+}
+
+.movie-details p, .watchlist-details p {
+  color: #cccccc; /* Softer light gray for additional text */
+}
+
+.movie-actions {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 15px;
+  border-top: 1px solid #444;
+  background-color: #1e1e1e;
+}
+
+.watchlist-btn, .fav-btn {
+  background: none;
+  border: none;
+  color: #ffcc00;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.watchlist-btn:hover, .fav-btn:hover {
+  color: #ffffff;
+}
+
+/* Hover Effect */
+.movie-card:hover, .watchlist-card:hover {
+  transform: scale(1.03); /* Slight zoom on hover */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Adds a subtle shadow */
+}
+
+.movie-card:hover img, .watchlist-card:hover img {
+  filter: brightness(1.15); /* Brightens the image on hover */
+}
+
+/* Pagination Styling */
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+  list-style: none;
+  padding: 0;
+}
+
+.pagination li {
+  margin: 0 8px;
+}
+
+.pagination button {
+  background-color: #ff6600;
+  border: none;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 50%; /* Rounded buttons */
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.pagination button:hover {
+  background-color: #cc5200;
+}
+
+/* Footer */
+.home-footer {
+  padding: 20px;
+  background-color: #1E1E1E;
+  text-align: center;
+  color: #ffffff;
+  flex-shrink: 0;
+}
+
+.home-footer p, .home-footer .footer-links a {
+  color: #ffffff;
+}
+
+.footer-links {
+  margin-top: 10px;
+}
+
+.footer-links a {
+  margin: 0 10px;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+  color: #FFC107;
+}

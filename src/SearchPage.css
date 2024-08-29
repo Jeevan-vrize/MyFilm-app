@@ -1,0 +1,259 @@
+/* General Page Styles */
+body {
+    font-family: 'Helvetica', sans-serif;
+    background-color: #0f0e17;
+    color: #bf95b9;
+    margin: 0;
+    padding: 0;
+}
+
+.search-page {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 30px 15px;
+}
+
+/* Header Styling */
+.home-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 30px;
+    background-color: #232946;
+    border-bottom: 4px solid #eebbc3;
+}
+
+.logo span {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #eebbc3;
+}
+
+.home-nav .nav-item {
+    color: #fffffe;
+    margin: 0 10px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.home-nav .nav-item:hover {
+    color: #eebbc3;
+    text-shadow: 0px 0px 10px #eebbc3;
+}
+
+/* Search Box */
+.search-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 20px 0;
+  }
+  
+  .search-box input {
+    flex: 2;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #b39090;
+    margin-right: 10px;
+  }
+  
+  .select-box {
+    flex: 1;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-right: 10px;
+  }
+  
+  .reset-btn,
+  .search-btn {
+    padding: 1px 2px;
+    border-radius: 10px;
+    border: none;
+    background-color: #ffc107;
+    color: rgb(14, 14, 13);
+    cursor: pointer;
+  }
+  
+  .reset-btn {
+    margin-right: 30px;
+  }
+  
+  .reset-btn:hover,
+  .search-btn:hover {
+    background-color: #e0a800;
+  }
+  
+
+.search-box button {
+    padding: 9px 9px;
+    border: 2px solid #edc00a;
+    background-color: #eebbc3;
+    border-radius: 0 10px 10px 0;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.search-box button:hover {
+    background-color: #b97a90;
+}
+
+/* Toggle Buttons for Grid and List View */
+.toggle-buttons {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 20px;
+}
+
+.toggle-buttons button {
+    padding: 8px 18px;
+    background-color: #eebbc3;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-left: 10px;
+    color: #232946;
+    transition: transform 0.2s, background-color 0.3s ease;
+}
+
+.toggle-buttons button:hover {
+    background-color: #b97a90;
+    transform: scale(1.05);
+}
+
+/* Grid View */
+.movies-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+.movie-card {
+    background-color: #2d334a;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+    padding: 10px;
+}
+
+.movie-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+.movie-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+.movie-details {
+    padding: 10px;
+}
+
+.movie-details h4 {
+    margin: 5px 0;
+    font-size: 1.1rem;
+    color: #eebbc3;
+}
+
+.movie-details p {
+    margin: 0;
+    font-size: 0.85rem;
+    color: #a3a3a3;
+}
+
+/* List View */
+.list-view {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+.movie-list-item {
+    display: flex;
+    background-color: #2d334a;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+    padding: 10px;
+}
+
+.movie-list-item img {
+    width: 150px;
+    height: auto;
+    border-radius: 10px;
+}
+
+.movie-list-item:hover {
+    transform: scale(1.02);
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+.movie-details {
+    padding: 15px;
+    flex: 1;
+}
+
+.movie-details h4 {
+    margin: 0 0 8px 0;
+    font-size: 1.3rem;
+    color: #eebbc3;
+}
+
+.movie-details p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #a3a3a3;
+}
+
+.movie-actions {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 10px;
+}
+
+.movie-actions button {
+    background-color: #eebbc3;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 12px;
+    margin: 8px 0;
+    font-weight: bold;
+    color: #232946;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.movie-actions button:hover {
+    background-color: #b97a90;
+}
+
+/* Pagination Styling */
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin: 30px 0;
+}
+
+.pagination button {
+    background-color: #232946;
+    color: #fffffe;
+    border: 2px solid #eebbc3;
+    border-radius: 50%;
+    padding: 8px;
+    margin: 0 5px;
+    cursor: pointer;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.pagination button:hover {
+    background-color: #eebbc3;
+    color: #232946;
+    transform: scale(1.15);
+}
