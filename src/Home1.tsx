@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './App.css';
+import { FaPlus } from 'react-icons/fa';
 
-// Define a Movie interface to type the movie objects
 interface Movie {
   id: number;
   title: string;
@@ -52,7 +52,6 @@ const Home1: React.FC = () => {
         </div>
         <nav className="home-nav">
           <a href="#home" className="nav-item active">Home</a>
-          
           <a href="#favorites" className="nav-item">Favorite</a>
           <a href="#watchlist" className="nav-item">Watchlist</a>
         </nav>
@@ -71,6 +70,7 @@ const Home1: React.FC = () => {
           <button onClick={handleSearchNavigate}><i className="search-icon">🔍</i></button>
         </div>
       </section>
+
       {/* Favorite Section */}
       <section className="watchlist-section" id="favorites">
         <h3>Favorite Movies</h3>
@@ -78,6 +78,10 @@ const Home1: React.FC = () => {
         <div className={`watchlist-grid ${showAllFavorites ? 'expanded' : ''}`}>
           {visibleFavorites.map((movie) => (
             <div className="watchlist-card" key={movie.id}>
+              {/* Watchlist Icon */}
+              <div className="watchlist-icon">
+                <FaPlus />
+              </div>
               <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title} />
               <div className="watchlist-details">
                 <h4>{movie.title}</h4>
@@ -112,8 +116,6 @@ const Home1: React.FC = () => {
       <a href="#" className="view-all" onClick={() => setShowAllWatchlists(!showAllWatchlists)}>
         {showAllWatchlists ? 'Show Less' : 'View All'}
       </a>
-
-      
 
       <footer className="home-footer">
         <p>Copyright © 2024 My Films. All rights reserved.</p>
