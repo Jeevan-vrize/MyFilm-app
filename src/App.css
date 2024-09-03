@@ -101,7 +101,6 @@ body, html {
 }
 
 .search-box1 button {
-  
   padding: 10px;
   border: 2px solid #ffc107;
   border-radius: 0 25px 25px 0;
@@ -113,6 +112,58 @@ body, html {
 
 .search-box1 button:hover {
   background-color: #cc5200; /* Darker shade on hover */
+}
+
+/* Popular Movies Section */
+.popular-movies-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.popular-movies-card {
+  position: relative;
+  overflow: visible;
+  border-radius: 8px;
+  background-color: #2c2c2c;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  z-index: 1;
+}
+
+.popular-movies-card img {
+  width: 100%;
+  border-radius: 8px;
+}
+
+/* Initially hide all cards except the first 5 */
+.popular-movies-card:nth-child(n+6) {
+  display: none;
+}
+
+/* When expanded, show all cards */
+.popular-movies-grid.expanded .popular-movies-card {
+  display: block;
+}
+
+/* View All Button */
+.view-all {
+  display: block;
+  text-align: center;
+  margin: 20px 0;
+  font-weight: bold;
+  color: #ff6600;
+  text-decoration: none;
+  font-size: 0.9rem;
+  padding: 5px 10px;
+  border-radius: 15px;
+  background-color: #f3e9e9;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.view-all:hover {
+  background-color: #ff6600;
+  color: #ffffff;
 }
 
 /* Movie and Watchlist Sections */
@@ -130,6 +181,7 @@ body, html {
   align-items: center;
   margin: 0;
 }
+
 .watchlist-icon {
   position: absolute;
   top: 10px;
@@ -141,13 +193,12 @@ body, html {
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 2; /* Ensure it is above other content */
 }
 
 
 .watchlist-card {
   position: relative;
-  overflow:visible;
+  overflow: visible;
   border-radius: 8px;
 }
 
@@ -183,7 +234,7 @@ body, html {
 
 .view-all {
   position: relative;
-margin-left: auto;
+  margin-left: auto;
   color: #ff6600; /* Matches the theme color */
   text-decoration: none;
   font-size: 0.9rem;
@@ -192,7 +243,6 @@ margin-left: auto;
   background-color: #f3e9e9; /* Slightly lighter background */
   cursor: pointer;
   transition: background-color 0.3s ease, color 0.3s ease;
-  /* Moves the button to the far left */
 }
 
 .view-all:hover {
@@ -201,7 +251,7 @@ margin-left: auto;
 }
 
 /* Grid Layout for Movies and Watchlists */
-.movie-card, .watchlist-card {
+.movie-card, .watchlist-card, .popular-card {
   background-color: #2c2c2c;
   border-radius: 10px;
   overflow: hidden;
@@ -210,28 +260,28 @@ margin-left: auto;
   z-index: 1; /* Ensure it's lower than the icon */
 }
 
-.movie-card:hover, .watchlist-card:hover {
+.movie-card:hover, .watchlist-card:hover, .popular-card:hover {
   transform: scale(1.03); /* Slight zoom on hover */
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Adds a subtle shadow */
   z-index: 1; /* Keep this lower than the watchlist icon */
 }
 
-.movie-card:hover img, .watchlist-card:hover img {
+.movie-card:hover img, .watchlist-card:hover img, .popular-card:hover img {
   filter: brightness(1.15); /* Brightens the image on hover */
 }
 
-.movie-details, .watchlist-details {
+.movie-details, .watchlist-details, .popular-details {
   padding: 10px;
   text-align: center;
   color: #f3e9e9;
 }
 
-.movie-details h4, .watchlist-details h4 {
+.movie-details h4, .watchlist-details h4, .popular-details h4 {
   margin: 10px 0;
   color: #f3e9e9; /* Light text color for readability */
 }
 
-.movie-details p, .watchlist-details p {
+.movie-details p, .watchlist-details p, .popular-details p {
   color: #cccccc; /* Softer light gray for additional text */
 }
 
@@ -253,16 +303,6 @@ margin-left: auto;
 
 .watchlist-btn:hover, .fav-btn:hover {
   color: #ffffff;
-}
-
-/* Hover Effect */
-.movie-card:hover, .watchlist-card:hover {
-  transform: scale(1.03); /* Slight zoom on hover */
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Adds a subtle shadow */
-}
-
-.movie-card:hover img, .watchlist-card:hover img {
-  filter: brightness(1.15); /* Brightens the image on hover */
 }
 
 /* Pagination Styling */
