@@ -16,7 +16,7 @@ interface Movie {
 const Home1: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState<string>('');
   const navigate = useNavigate();
-  const [theme, setTheme] = useState<string>('light');
+  const [theme, setTheme] = useState<string>('dark');
   const [movies, setMovies] = useState<Movie[]>([]);
   const [watchlists, setWatchlists] = useState<Movie[]>([]);
   const [favorites, setFavorites] = useState<Movie[]>([]);
