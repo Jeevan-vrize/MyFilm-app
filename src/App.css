@@ -1,45 +1,65 @@
-:root {
-  --bg-color: #f3e9e9;
-  --text-color: C#333333;
-  --header-bg-color: #e5d7d7;
-  --card-bg-color: #ffffff;
-  --button-bg-color: #ff6600;
-  --button-text-color: #ffffff;
-  --nav-link-color: #eb0707;
-  --nav-link-hover-bg-color: #da0d0d;
+/* Light Theme - Default */
+
+
+body.light-theme .movie-card, 
+body.light-theme .watchlist-card, 
+body.light-theme .popular-card {
+  background-color: #120202; /* Light card color */
 }
 
-/* Dark Theme Variables */
-:root[data-theme='dark'] {
-  --bg-color: #1a1a1a;
-  --text-color: #f5f5f5;
-  --header-bg-color: #333333;
-  --card-bg-color: #262626;
-  --button-bg-color: #ff4500;
-  --button-text-color: #ffffff;
-  --nav-link-color: #ff6666;
-  --nav-link-hover-bg-color: #ff4500;
+/* Dark Theme */
+body.dark-theme {
+  background-color:White; /* Dark background in dark mode */
+  color: #240303; /* Light text for readability */
 }
+
+body.dark-theme .movie-card, 
+body.dark-theme .watchlist-card, 
+body.dark-theme .popular-card {
+  background-color: #170202; /* White card color in dark mode */
+}
+
+/* For additional sections you want to target */
+body.light-theme .favourite-movies, 
+body.dark-theme .favourite-movies {
+  background-color: var(--card-bg-color);
+}
+body.light-theme .watchlist-movies, 
+body.dark-theme .watchlist-movies {
+  background-color: var(--card-bg-color);
+}
+body.light-theme .popular-movies, 
+body.dark-theme .popular-movies {
+  background-color: var(--card-bg-color);
+}
+
+
+body.dark-theme .home-header{
+ background-color:  #ffffff;
+ text:rgb(10, 5, 5);
+}
+
 
 .theme-toggle {
   cursor: pointer;
 }
 
-.button {
-  background-color: var(--button-bg-color);
-  color: var(--button-text-color);
-}
+
 
 /* General styling */
 body, html {
+  background-color: var(--bg-color);
+  
+  color: var(--text-color);
   margin: 0;
   padding: 0;
   font-family: 'Arial', sans-serif;
-  background-color: var(--bg-color);
-  color: var(--text-color);
+  
+ 
   height: 100%;
   width: 100%;
   overflow-x: hidden; /* Prevents horizontal scrolling */
+  
 }
 
 #root {
@@ -78,16 +98,16 @@ body, html {
 }
 
 .nav-item {
-  color: var(--nav-link-color);
+  color: #db0c0c;
   text-decoration: none;
   padding: 8px 16px;
   border-radius: 20px;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition:  0.3s ease, color 0.3s ease;
 }
 
 .nav-item.active,
 .nav-item:hover {
-  background-color: var(--nav-link-hover-bg-color);
+  background-color: rgb(37, 2, 2);
   color: #121212;
 }
 
@@ -270,6 +290,7 @@ margin-left: auto;
 /* Grid Layout for Movies and Watchlists */
 .movie-card, .watchlist-card, .popular-card {
   background-color: var(--card-bg-color);
+ 
   border-radius: 10px;
   overflow: hidden;
   transition: transform 0.3s ease, box-shadow 0.3s ease;

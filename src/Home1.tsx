@@ -4,6 +4,9 @@ import './App.css';
 import { FaPlus, FaHeart, FaSun, FaMoon } from 'react-icons/fa';  
 import { ToastContainer, toast } from 'react-toastify';  
 import 'react-toastify/dist/ReactToastify.css';  
+import useJeevan from './customhook';
+
+
 
 interface Movie {
   id: number;
@@ -13,17 +16,23 @@ interface Movie {
   poster_path: string;
 }
 
+
 const Home1: React.FC = () => {
+
+  const { theme, toggleTheme } = useJeevan();
+  
   const [searchQuery, setSearchQuery] = useState<string>('');
   const navigate = useNavigate();
-  const [theme, setTheme] = useState<string>('dark');
+ 
   const [movies, setMovies] = useState<Movie[]>([]);
   const [watchlists, setWatchlists] = useState<Movie[]>([]);
   const [favorites, setFavorites] = useState<Movie[]>([]);
   const [popularMovies, setPopularMovies] = useState<Movie[]>([]);
   const [showAllWatchlists, setShowAllWatchlists] = useState<boolean>(false);
   const [showAllFavorites, setShowAllFavorites] = useState<boolean>(false);
-
+ 
+  
+  
   useEffect(() => {
     
     fetch('https://api.themoviedb.org/3/discover/movie?api_key=79b50518d885029cb7d87a12f699111a')
@@ -71,11 +80,7 @@ const Home1: React.FC = () => {
     setFavorites(updatedFavorites);
     toast.info('Movie removed from Favorites.');
   };
-  const toggleTheme = () => {
-    const newTheme = theme === 'light' ? 'dark' : 'light';
-    setTheme(newTheme);
-    document.documentElement.setAttribute('data-theme', newTheme);
-  };
+ 
 
   const visibleWatchlists = showAllWatchlists ? watchlists : watchlists.slice(0, 5);
   const visibleFavorites = showAllFavorites ? favorites : favorites.slice(0, 5);
@@ -89,12 +94,13 @@ const Home1: React.FC = () => {
       </div>
       <nav className="home-nav">
         <a href="#home" className="nav-item active">Home</a>
-        <a href="#favorites" className="nav-item">Favorites</a>
-        <a href="#watchlist" className="nav-item">Watchlist</a>
+        <a href="#favorites" className="nav-item active">Favorites</a>
+        <a href="#watchlist" className="nav-item active">Watchlist</a>
       </nav>
-      <div className="theme-toggle" onClick={toggleTheme}>
-        {theme === 'light' ? <FaMoon /> : <FaSun />}
-      </div>
+      <button onClick={toggleTheme}>
+          {theme === 'light' ? 'Switch to Dark Mode' : 'Switch to Light Mode'}
+        </button>
+      
     </header>
 
       <section className="welcome-section">
@@ -112,9 +118,9 @@ const Home1: React.FC = () => {
       </section>
 
    
-      <section className="popular-movies-section" id="popular-movies">
+      <section className="watchlist-section" id="watchlist-movies">
         <h3>Popular Movies</h3>
-        <br />
+        
         <div className="popular-movies-grid">
           {popularMovies.length > 0 ? (
             popularMovies.map((movie) => (
@@ -148,9 +154,9 @@ const Home1: React.FC = () => {
       </section>
 
 
-      <section className="watchlist-section" id="favorites">
+      <section className="watchlist-section" id="favorites-movies">
         <h3>Favorite Movies</h3>
-        <br />
+      
         <div className={`watchlist-grid ${showAllFavorites ? 'expanded' : ''}`}>
           {visibleFavorites.length > 0 ? (
             visibleFavorites.map((movie) => (
@@ -179,7 +185,7 @@ const Home1: React.FC = () => {
       </a>
 
    
-      <section className="watchlist-section" id="watchlist">
+      <section className="watchlist-section" id="watchlist-movies">
         <h3>Watchlist</h3>
         <br />
         <div className={`watchlist-grid ${showAllWatchlists ? 'expanded' : ''}`}>
