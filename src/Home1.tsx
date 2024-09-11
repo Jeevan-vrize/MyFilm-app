@@ -1,9 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState,useReducer } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './App.css';
 import { FaPlus, FaHeart, FaSun, FaMoon } from 'react-icons/fa';  
 import { ToastContainer, toast } from 'react-toastify';  
 import 'react-toastify/dist/ReactToastify.css';  
+import useJeevan from './customhook';
+
+
 
 interface Movie {
   id: number;
@@ -12,28 +15,77 @@ interface Movie {
   vote_average: number;
   poster_path: string;
 }
+type ActionType = 
+  | { type: 'ADD_MOVIE'; payload: Movie }
+  | { type: 'REMOVE_MOVIE'; payload: number };
+
+const watchlistReducer = (state: Movie[], action: ActionType): Movie[] => {
+  switch (action.type) {
+    case 'ADD_MOVIE':
+      return state.some(movie => movie.id === action.payload.id)
+        ? state
+        : [...state, action.payload];
+    case 'REMOVE_MOVIE':
+      return state.filter(movie => movie.id !== action.payload);
+    default:
+      return state;
+  }
+};
+
+const favoritesReducer = (state: Movie[], action: ActionType): Movie[] => {
+  switch (action.type) {
+    case 'ADD_MOVIE':
+      return state.some(movie => movie.id === action.payload.id)
+        ? state
+        : [...state, action.payload];
+    case 'REMOVE_MOVIE':
+      return state.filter(movie => movie.id !== action.payload);
+    default:
+      return state;
+  }
+};
+
 
 const Home1: React.FC = () => {
+
+  const { theme, toggleTheme } = useJeevan();
+  
   const [searchQuery, setSearchQuery] = useState<string>('');
   const navigate = useNavigate();
-  const [theme, setTheme] = useState<string>('light');
+ 
   const [movies, setMovies] = useState<Movie[]>([]);
-  const [watchlists, setWatchlists] = useState<Movie[]>([]);
-  const [favorites, setFavorites] = useState<Movie[]>([]);
+  
   const [popularMovies, setPopularMovies] = useState<Movie[]>([]);
   const [showAllWatchlists, setShowAllWatchlists] = useState<boolean>(false);
-  const [showAllFavorites, setShowAllFavorites] = useState<boolean>(false);
 
+  const [showAllFavorites, setShowAllFavorites] = useState<boolean>(false);
+  const [watchlists, dispatchWatchlist] = useReducer(watchlistReducer, []);
+  const [favorites, dispatchFavorites] = useReducer(favoritesReducer, []);
+ 
+  
+  
   useEffect(() => {
     
     fetch('https://api.themoviedb.org/3/discover/movie?api_key=79b50518d885029cb7d87a12f699111a')
       .then(response => response.json())
       .then(data => {
         setMovies(data.results || []);
-        setWatchlists(data.results.slice(5, 10) || []); 
-        setFavorites(data.results.slice(10, 15) || []); 
+        const initialMovies = data.results.slice(5, 10);
+        const initialMovies1 = data.results.slice(11, 16);
+        setMovies(data.results || []);
         setPopularMovies(data.results || []);
-      })
+
+        // Initialize with 5 movies
+        initialMovies.forEach((movie: Movie) => {
+          
+          dispatchFavorites({ type: 'ADD_MOVIE', payload: movie }); 
+      
+      });
+      initialMovies1.forEach((movie: Movie) => {
+        dispatchWatchlist({ type: 'ADD_MOVIE', payload: movie });
+        
+    });
+    })
       .catch(error => console.error('Error fetching movies:', error));
   }, []);
 
@@ -46,37 +98,25 @@ const Home1: React.FC = () => {
   };
 
   const handleAddToWatchlist = (movie: Movie) => {
-    if (!watchlists.some((watchlistMovie) => watchlistMovie.id === movie.id)) {
-      setWatchlists([...watchlists, movie]);
-      toast.success(`${movie.title} added to Watchlist!`);
-    }
-  };
-
-  const handleAddToFavorites = (movie: Movie) => {
-    if (!favorites.some((favoriteMovie) => favoriteMovie.id === movie.id)) {
-      setFavorites([...favorites, movie]);
-      toast.success(`${movie.title} added to Favorites!`);
-    }
+    dispatchWatchlist({ type: 'ADD_MOVIE', payload: movie });
+    toast.success(`${movie.title} added to Watchlist!`);
   };
 
   const handleRemoveFromWatchlist = (movieId: number) => {
-    const updatedWatchlist = watchlists.filter(movie => movie.id !== movieId);
-    setWatchlists(updatedWatchlist);
+    dispatchWatchlist({ type: 'REMOVE_MOVIE', payload: movieId });
     toast.info('Movie removed from Watchlist.');
   };
 
+ 
+  const handleAddToFavorites = (movie: Movie) => {
+    dispatchFavorites({ type: 'ADD_MOVIE', payload: movie });
+    toast.success(`${movie.title} added to Favorites!`);
+  };
 
   const handleRemoveFromFavorites = (movieId: number) => {
-    const updatedFavorites = favorites.filter(movie => movie.id !== movieId);
-    setFavorites(updatedFavorites);
+    dispatchFavorites({ type: 'REMOVE_MOVIE', payload: movieId });
     toast.info('Movie removed from Favorites.');
   };
-  const toggleTheme = () => {
-    const newTheme = theme === 'light' ? 'dark' : 'light';
-    setTheme(newTheme);
-    document.documentElement.setAttribute('data-theme', newTheme);
-  };
-
   const visibleWatchlists = showAllWatchlists ? watchlists : watchlists.slice(0, 5);
   const visibleFavorites = showAllFavorites ? favorites : favorites.slice(0, 5);
 
@@ -89,12 +129,13 @@ const Home1: React.FC = () => {
       </div>
       <nav className="home-nav">
         <a href="#home" className="nav-item active">Home</a>
-        <a href="#favorites" className="nav-item">Favorites</a>
-        <a href="#watchlist" className="nav-item">Watchlist</a>
+        <a href="#favorites-movies" className="nav-item active">Favorites</a>
+        <a href="#watchlist-movies" className="nav-item active">Watchlist</a>
       </nav>
-      <div className="theme-toggle" onClick={toggleTheme}>
-        {theme === 'light' ? <FaMoon /> : <FaSun />}
-      </div>
+      <button onClick={toggleTheme}>
+          {theme === 'light' ? 'Switch to Dark Mode' : 'Switch to Light Mode'}
+        </button>
+      
     </header>
 
       <section className="welcome-section">
@@ -112,9 +153,9 @@ const Home1: React.FC = () => {
       </section>
 
    
-      <section className="popular-movies-section" id="popular-movies">
+      <section className="watchlist-section" id="popular-movies">
         <h3>Popular Movies</h3>
-        <br />
+        
         <div className="popular-movies-grid">
           {popularMovies.length > 0 ? (
             popularMovies.map((movie) => (
@@ -148,9 +189,9 @@ const Home1: React.FC = () => {
       </section>
 
 
-      <section className="watchlist-section" id="favorites">
+      <section className="watchlist-section" id="favorites-movies">
         <h3>Favorite Movies</h3>
-        <br />
+      
         <div className={`watchlist-grid ${showAllFavorites ? 'expanded' : ''}`}>
           {visibleFavorites.length > 0 ? (
             visibleFavorites.map((movie) => (
@@ -179,7 +220,7 @@ const Home1: React.FC = () => {
       </a>
 
    
-      <section className="watchlist-section" id="watchlist">
+      <section className="watchlist-section" id="watchlist-movies">
         <h3>Watchlist</h3>
         <br />
         <div className={`watchlist-grid ${showAllWatchlists ? 'expanded' : ''}`}>
