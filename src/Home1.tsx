@@ -1,12 +1,12 @@
 import React, { useEffect, useState, useReducer } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useQuery, useMutation } from '@apollo/client';
+
 import './App.css';
 import { FaPlus, FaHeart } from 'react-icons/fa';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import useJeevan from './customhook';
-import { GET_FAVORITES, GET_WATCHLIST, ADD_TO_FAVORITES, REMOVE_FROM_FAVORITES, ADD_TO_WATCHLIST, REMOVE_FROM_WATCHLIST } from './queries';
+import { ADD_TO_WATCHLIST, REMOVE_FROM_WATCHLIST, ADD_TO_FAVORITES, REMOVE_FROM_FAVORITES } from './queries';
 
 interface Movie {
   id: number;
@@ -22,31 +22,32 @@ type ActionType =
   | { type: 'ADD_TO_FAVORITES'; payload: Movie }
   | { type: 'REMOVE_FROM_FAVORITES'; payload: number };
 
-const watchlistReducer = (state: Movie[], action: ActionType): Movie[] => {
-  switch (action.type) {
-    case 'ADD_TO_WATCHLIST':
-      return state.some(movie => movie.id === action.payload.id)
-        ? state
-        : [...state, action.payload];
-    case 'REMOVE_FROM_WATCHLIST':
-      return state.filter(movie => movie.id !== action.payload);
-    default:
-      return state;
-  }
-};
-
-const favoritesReducer = (state: Movie[], action: ActionType): Movie[] => {
-  switch (action.type) {
-    case 'ADD_TO_FAVORITES':
-      return state.some(movie => movie.id === action.payload.id)
-        ? state
-        : [...state, action.payload];
-    case 'REMOVE_FROM_FAVORITES':
-      return state.filter(movie => movie.id !== action.payload);
-    default:
-      return state;
-  }
-};
+  const watchlistReducer = (state: Movie[], action: ActionType): Movie[] => {
+    switch (action.type) {
+      case 'ADD_TO_WATCHLIST':
+        return state.some(movie => movie.id === action.payload.id)
+          ? state
+          : [...state, action.payload];
+      case 'REMOVE_FROM_WATCHLIST':
+        return state.filter(movie => movie.id !== action.payload);
+      default:
+        return state;
+    }
+  };
+  
+  const favoritesReducer = (state: Movie[], action: ActionType): Movie[] => {
+    switch (action.type) {
+      case 'ADD_TO_FAVORITES':
+        return state.some(movie => movie.id === action.payload.id)
+          ? state
+          : [...state, action.payload];
+      case 'REMOVE_FROM_FAVORITES':
+        return state.filter(movie => movie.id !== action.payload);
+      default:
+        return state;
+    }
+  };
+  
 
 const Home1: React.FC = () => {
   const { theme, toggleTheme } = useJeevan();
